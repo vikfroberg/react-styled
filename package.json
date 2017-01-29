@@ -5,11 +5,10 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
-    "test": "ava"
+    "test": "ava lib/test"
   },
   "author": "Viktor Fröberg <vikfroberg@gmail.com> (http://github.com/vikfroberg)",
   "license": "MIT",
-  "private": true,
   "dependencies": {
     "ava": "^0.17.0",
     "babel-cli": "^6.22.2",
