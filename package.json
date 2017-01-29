@@ -3,17 +3,20 @@
   "version": "1.0.0",
   "description": "Omit invalid props from React components",
   "main": "lib/index.js",
+  "repository": "vikfroberg/react-invalid-props",
+  "author": "Viktor Fröberg <vikfroberg@gmail.com> (http://github.com/vikfroberg)",
+  "license": "MIT",
   "scripts": {
     "build": "babel src --out-dir lib",
     "test": "ava lib/test"
   },
-  "author": "Viktor Fröberg <vikfroberg@gmail.com> (http://github.com/vikfroberg)",
-  "license": "MIT",
   "dependencies": {
+    "react": "^15.4.2"
+  },
+  "devDependencies": {
     "ava": "^0.17.0",
     "babel-cli": "^6.22.2",
     "babel-preset-latest": "^6.22.0",
-    "babel-preset-stage-0": "^6.22.0",
-    "react": "^15.4.2"
+    "babel-preset-stage-0": "^6.22.0"
   }
 }
