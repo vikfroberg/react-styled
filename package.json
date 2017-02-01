@@ -8,8 +8,8 @@
   "license": "MIT",
   "scripts": {
     "build": "babel src --out-dir lib",
-    "coverage": "nyc --reporter=html ava",
-    "test": "ava --verbose"
+    "coverage": "nyc --reporter=html ava lib/test",
+    "test": "ava --verbose lib/test"
   },
   "dependencies": {
     "classnames": "^2.2.5",
