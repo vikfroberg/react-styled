@@ -1,0 +1,28 @@
+{
+  "name": "react-styled",
+  "version": "0.0.0",
+  "description": "Adaptable styled components",
+  "main": "lib/index.js",
+  "repository": "vikfroberg/react-styled",
+  "author": "Viktor Fröberg <vikfroberg@gmail.com> (http://github.com/vikfroberg)",
+  "license": "MIT",
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "coverage": "nyc --reporter=html ava",
+    "test": "ava --verbose"
+  },
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "lodash": "^4.17.4",
+    "nyc": "^10.1.2",
+    "react": "^15.4.2",
+    "recompose": "^0.22.0",
+    "source-map-support": "^0.4.11"
+  },
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "babel-cli": "^6.22.2",
+    "babel-preset-latest": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0"
+  }
+}
