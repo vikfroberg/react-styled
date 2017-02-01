@@ -1,6 +1,6 @@
 {
   "name": "react-styled",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Adaptable styled components",
   "main": "lib/index.js",
   "repository": "vikfroberg/react-styled",
