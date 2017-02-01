@@ -1,22 +1,29 @@
 import test from 'ava'
-import * as stub from '..'
-
-stub.Block = props => props
-const styled = stub.styled
+import React from 'react'
+import styled from '../styled'
+import Block from '../Block'
 
 const color = '#fff'
 const font = 'Arial'
 const backgroundColor = '#000'
 
-test('renders a Block', t => {
+test('returns an element', t => {
   const Component = styled('div')
 
   const element = Component({})
 
-  t.is(element.type, stub.Block)
+  t.true(React.isValidElement(element))
 })
 
-test('forwards css to Block', t => {
+test('returns a Block', t => {
+  const Component = styled('div')
+
+  const element = Component({})
+
+  t.is(element.type, Block)
+})
+
+test('passes css to Block', t => {
   const Component = styled('div', { color })
 
   const element = Component({})
@@ -24,32 +31,36 @@ test('forwards css to Block', t => {
   t.deepEqual(element.props.css, { color })
 })
 
-test('forwards component to Block', t => {
+test('passes component to Block', t => {
+  const Component = styled('span')
+
+  const element = Component({})
+
+  t.deepEqual(element.props.component, 'span')
+})
+
+test('passes props to Block', t => {
+  const Component = styled('div')
+
+  const element = Component({ id: 'a' })
+
+  t.is(element.props.id, 'a')
+})
+
+test('passes inline css to Block', t => {
+  const Component = styled('div')
+
+  const element = Component({ css: { color } })
+
+  t.deepEqual(element.props.css, { color })
+})
+
+test('passes inline component to Block', t => {
   const Component = styled('div')
 
   const element = Component({ component: 'span' })
 
   t.deepEqual(element.props.component, 'span')
-})
-
-test('transforms props', t => {
-  const Component = styled('div', props => ({
-    ...props,
-    css: { color },
-  }))
-
-  const element = Component({})
-
-  t.deepEqual(element.props.css, { color })
-})
-
-test('only passes returned props', t => {
-  const Component = styled('div', ({ color }) => ({
-  }))
-
-  const element = Component({ color })
-
-  t.deepEqual(element.props, {})
 })
 
 test('merges inline css', t => {
@@ -60,30 +71,43 @@ test('merges inline css', t => {
   t.deepEqual(element.props.css, { color, backgroundColor })
 })
 
-test('inherits css', t => {
-  const ParentComponent = styled('div', { color })
-  const Component = styled(ParentComponent, { backgroundColor })
+test('inherits css recursively', t => {
+  const GrandParent = styled('div', { color })
+  const Parent = styled(GrandParent, { backgroundColor })
+  const Component = styled(Parent, { font })
 
   const element = Component({})
+
+  t.deepEqual(element.props.css, { color, backgroundColor, font })
+})
+
+test('transforms props', t => {
+  const Component = styled('div', props => ({
+    color,
+  }))
+
+  const element = Component({})
+
+  t.deepEqual(element.props.color, color)
+})
+
+test('merges transformed props', t => {
+  const Component = styled('div', props => ({
+    css: { backgroundColor },
+  }))
+
+  const element = Component({ css: { color } })
 
   t.deepEqual(element.props.css, { color, backgroundColor })
 })
 
-test('inline component with inherited css', t => {
-  const ParentComponent = styled('div')
-  const Component = styled(ParentComponent)
+test('only merge keys returned from transformer', t => {
+  const Component = styled('div', props => ({
+    backgroundColor,
+  }))
 
-  const element = Component({ component: 'span' })
+  const element = Component({ color })
 
-  t.deepEqual(element.props.component, 'span')
+  t.is(element.props.backgroundColor, backgroundColor)
+  t.is(element.props.color, undefined)
 })
-
-test('inline css with inherited css', t => {
-  const ParentComponent = styled('div', { color })
-  const Component = styled(ParentComponent, { backgroundColor })
-
-  const element = Component({ css: { font } })
-
-  t.deepEqual(element.props.css, { font, color, backgroundColor })
-})
-
