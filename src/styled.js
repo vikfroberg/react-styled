@@ -1,8 +1,10 @@
 import { createElement } from 'react'
 import { merge, pick } from 'lodash'
-import Block from './Block'
+import _Block from './Block'
 
-export default function styled(component, transformer) {
+export default styled
+
+function styled(component, transformer, Block = _Block) {
   const propsTransformer = typeof transformer === 'function'
     ? transformer
     : createCSSTransformer(transformer)
@@ -11,10 +13,17 @@ export default function styled(component, transformer) {
     createMergeTransformer(propsTransformer)
 
   if (isStyledComponent(component)) {
-    return createStyledComponent(component, mergePropsTransformer)
+    return createStyledComponent(
+      component,
+      mergePropsTransformer,
+    )
   }
-  return createStyledElement(component, mergePropsTransformer)
 
+  return createStyledElement(
+    component,
+    mergePropsTransformer,
+    Block,
+  )
 }
 
 const COMPONENT_KEY = '__REACT_STYLED_COMPONENT'
@@ -46,7 +55,7 @@ function createStyledComponent(component, transformer) {
   return tagStyledComponent(StyledComponent)
 }
 
-function createStyledElement(component, transformer) {
+function createStyledElement(component, transformer, Block) {
   function StyledElement(props) {
     return createElement(
       Block,

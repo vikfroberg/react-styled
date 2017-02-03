@@ -1,7 +1,10 @@
 import test from 'ava'
 import React from 'react'
-import styled from '../styled'
-import Block from '../Block'
+import _styled from '../styled'
+
+const MockedBlock = () => {}
+const styled = (component, transformer) =>
+  _styled(component, transformer, MockedBlock)
 
 const color = '#fff'
 const font = 'Arial'
@@ -20,7 +23,7 @@ test('returns a Block', t => {
 
   const element = Component({})
 
-  t.is(element.type, Block)
+  t.is(element.type, MockedBlock)
 })
 
 test('passes css to Block', t => {
