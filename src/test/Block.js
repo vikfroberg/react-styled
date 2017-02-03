@@ -1,5 +1,6 @@
 import test from 'ava'
 import React from 'react'
+import { spy } from 'sinon'
 import { Block } from '../Block'
 
 const color = '#fff'
@@ -23,14 +24,13 @@ test('override component', t => {
 })
 
 test('injects css', t => {
-  t.plan(1)
   const css = { color }
+  const injectCSS = spy()
 
   const element = Block({ css, injectCSS })
 
-  function injectCSS(val) {
-    t.deepEqual(val, css)
-  }
+  t.true(injectCSS.calledOnce)
+  t.true(injectCSS.calledWith(css))
 })
 
 test('uses return classname', t => {

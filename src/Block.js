@@ -2,7 +2,9 @@ import { createElement, PropTypes } from 'react'
 import { compose, getContext, setPropTypes } from 'recompose'
 import classnames from 'classnames'
 
-exports.Block = Block
+export {
+  Block,
+}
 
 export default compose(
   getContext({
